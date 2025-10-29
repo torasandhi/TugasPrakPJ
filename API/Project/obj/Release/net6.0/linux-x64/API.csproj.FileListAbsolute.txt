@@ -1,0 +1,13 @@
+D:\UNITY\Untity Projects\TugasPrakPJ\API\Project\bin\Release\net6.0\linux-x64\API.deps.json
+D:\UNITY\Untity Projects\TugasPrakPJ\API\Project\bin\Release\net6.0\linux-x64\API.dll
+D:\UNITY\Untity Projects\TugasPrakPJ\API\Project\bin\Release\net6.0\linux-x64\API.pdb
+D:\UNITY\Untity Projects\TugasPrakPJ\API\Project\obj\Release\net6.0\linux-x64\API.csproj.AssemblyReference.cache
+D:\UNITY\Untity Projects\TugasPrakPJ\API\Project\obj\Release\net6.0\linux-x64\API.GeneratedMSBuildEditorConfig.editorconfig
+D:\UNITY\Untity Projects\TugasPrakPJ\API\Project\obj\Release\net6.0\linux-x64\API.AssemblyInfoInputs.cache
+D:\UNITY\Untity Projects\TugasPrakPJ\API\Project\obj\Release\net6.0\linux-x64\API.AssemblyInfo.cs
+D:\UNITY\Untity Projects\TugasPrakPJ\API\Project\obj\Release\net6.0\linux-x64\API.csproj.CoreCompileInputs.cache
+D:\UNITY\Untity Projects\TugasPrakPJ\API\Project\obj\Release\net6.0\linux-x64\API.sourcelink.json
+D:\UNITY\Untity Projects\TugasPrakPJ\API\Project\obj\Release\net6.0\linux-x64\API.dll
+D:\UNITY\Untity Projects\TugasPrakPJ\API\Project\obj\Release\net6.0\linux-x64\refint\API.dll
+D:\UNITY\Untity Projects\TugasPrakPJ\API\Project\obj\Release\net6.0\linux-x64\API.pdb
+D:\UNITY\Untity Projects\TugasPrakPJ\API\Project\obj\Release\net6.0\linux-x64\ref\API.dll

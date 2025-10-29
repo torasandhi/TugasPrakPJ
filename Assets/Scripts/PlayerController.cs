@@ -1,34 +1,51 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Singleton<PlayerController>
 {
-    // public CharacterController controller;
-    private Dictionary<E_PlayerState, IPlayerState> _states = new Dictionary<E_PlayerState, IPlayerState>();
-    private IPlayerState _currentState;
+    private Controls input;
 
-    private void Awake()
+    protected override void Awake()
     {
-        _states.Add(E_PlayerState.Movement, new PlayerState_Movement(this));
-        // Add more states like Jumping, Attacking, Interacting, etc.
+        base.Awake();
+        input = new Controls();
+        input.Enable();
     }
 
-    private void Start()
+    public void InputActivate(EGameState type)
     {
-        ChangeState(E_PlayerState.Movement);
+        foreach (var item in input)
+        {
+            item.Disable();
+        }
+
+        switch (type)
+        {
+            case EGameState.MainMenu:
+                input.UI.Enable();
+                break;
+            case EGameState.Gameplay:
+                input.Player.Enable();
+                break;
+            case EGameState.GameOver:
+                input.UI.Enable();
+                break;
+        }
     }
 
-    private void Update()
+    public void DisableInput()
     {
-        _currentState?.Update();
+        foreach (var item in input)
+        {
+            item.Disable();
+        }
     }
 
-    public void ChangeState(E_PlayerState nextState)
+    public Controls GetCurrentInput()
     {
-        _currentState?.Exit();
-        _currentState = _states[nextState];
-        _currentState.Enter();
+        return input;
     }
 }
 

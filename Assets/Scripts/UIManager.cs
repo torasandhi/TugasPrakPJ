@@ -1,31 +1,58 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+
+[Serializable]
+struct UI
+{
+    public string name;
+    public Transform transform;
+}
 
 public class UIManager : Singleton<UIManager>
 {
-    // Add references to your UI panels (e.g., Main Menu, HUD, Pause Menu)
-    // public GameObject mainMenuPanel;
-    // public GameObject gameplayHudPanel;
+
+    [SerializeField] private List<UI> ui = new List<UI>();
+
+    private List<UI> ui_spawn_list = new List<UI>();
 
     protected override void Awake()
     {
         base.Awake();
-        // Subscribe to game state changes to automatically show/hide UI
-        GameManager.OnGameStateChanged += HandleGameStateChange;
     }
 
-    private void OnDestroy()
+    private Transform GetListUI(string name)
     {
-        GameManager.OnGameStateChanged -= HandleGameStateChange;
+        return ui.Find(x => x.name == name).transform;
     }
 
-    private void HandleGameStateChange(E_GameState newState)
+    public Transform GetUI(string name)
     {
-        // Hide all panels first
-        // mainMenuPanel.SetActive(false);
-        // gameplayHudPanel.SetActive(false);
+        return ui_spawn_list.Find(x => x.name == name).transform;
+    }
 
-        // Show the correct panel based on the new state
-        // if (newState == E_GameState.MainMenu) mainMenuPanel.SetActive(true);
-        // if (newState == E_GameState.Gameplay) gameplayHudPanel.SetActive(true);
+    private int GetSpawnIndexUI(string name)
+    {
+        return ui_spawn_list.FindIndex(x => x.name == name);
+    }
+
+    public void SpawnUIByString(string name)
+    {
+        if (GetUI(name)) return;
+
+        Transform temp = (GameObject.Instantiate(GetListUI(name).gameObject, Vector3.zero, Quaternion.identity, transform)).transform;
+
+        UI temp_ui = new UI();
+        temp_ui.name = name;
+        temp_ui.transform = temp;
+        ui_spawn_list.Add(temp_ui);
+    }
+
+    public void DestroyUIByString(string name)
+    {
+        if (!GetUI(name)) return;
+
+        Destroy(GetUI(name).gameObject);
+        ui_spawn_list.RemoveAt(GetSpawnIndexUI(name));
     }
 }
