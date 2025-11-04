@@ -13,6 +13,28 @@ namespace Unity.Services.CloudCode.GeneratedBindings
             k_Service = service;
         }
 
+        public async Task PUT_PlayerScore(int score)
+        {
+            await k_Service.CallModuleEndpointAsync(
+                "PlayerScoreAPI",
+                "PUT_PlayerScore",
+                new Dictionary<string, object>()
+                {
+                    {"score", score},
+                });
+        }
+
+        public async Task PUT_PlayerCharacter(int characterIndex)
+        {
+            await k_Service.CallModuleEndpointAsync(
+                "PlayerScoreAPI",
+                "PUT_PlayerCharacter",
+                new Dictionary<string, object>()
+                {
+                    {"characterIndex", characterIndex},
+                });
+        }
+
         public async Task PUT_PlayerData(int score, int characterIndex)
         {
             await k_Service.CallModuleEndpointAsync(

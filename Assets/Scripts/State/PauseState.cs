@@ -2,13 +2,13 @@
 
 public class State_Pause : IState
 {
-    public void Enter()
+    public void OnEnter()
     {
         Debug.Log("Entering Pause State.");
         UIManager.Instance.SpawnUIByString("ui-pause");
     }
 
-    public void Update()
+    public void OnUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -16,7 +16,7 @@ public class State_Pause : IState
         }
     }
 
-    public void Exit()
+    public void OnExit()
     {
         Debug.Log("Exiting Pause State.");
         UIManager.Instance.DestroyUIByString("ui-pause");

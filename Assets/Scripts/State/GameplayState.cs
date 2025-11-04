@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class State_Gameplay : IState
 {
-    public void Enter()
+    public void OnEnter()
     {
         Debug.Log("Entering Gameplay State.");
         // - Enable player input
@@ -11,7 +11,7 @@ public class State_Gameplay : IState
         // - Show the gameplay HUD
     }
 
-    public void Update()
+    public void OnUpdate()
     {
         // - Check for win/loss conditions
         // - Listen for the pause button
@@ -21,7 +21,7 @@ public class State_Gameplay : IState
         }
     }
 
-    public void Exit()
+    public void OnExit()
     {
         Debug.Log("Exiting Gameplay State.");
         // - Disable player input

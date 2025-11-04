@@ -19,13 +19,13 @@ public class State_Machine
     {
         if (_currentState != null)
         {
-            _currentState.Exit();
+            _currentState.OnExit();
         }
 
         if (_states.TryGetValue(newState, out IState nextState))
         {
             _currentState = nextState;
-            _currentState.Enter();
+            _currentState.OnEnter();
 
             // This is the crucial line to tell GameManager the state has changed
             // which will then trigger the PlayerController to swap input maps.
@@ -44,7 +44,7 @@ public class State_Machine
     {
         if (_currentState != null)
         {
-            _currentState.Update();
+            _currentState.OnUpdate();
         }
     }
 }

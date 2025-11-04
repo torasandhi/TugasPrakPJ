@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class State_Loading : IState
 {
-    public void Enter()
+    public void OnEnter()
     {
         Debug.Log("Entering Loading State.");
 
     }
 
-    public void Update()
+    public void OnUpdate()
     {
     }
 
-    public void Exit()
+    public void OnExit()
     {
         Debug.Log("Exiting Loading State.");
 

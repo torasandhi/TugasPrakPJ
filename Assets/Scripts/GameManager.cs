@@ -20,7 +20,6 @@ public class GameManager : Singleton<GameManager>
         {
             Debug.LogError("GameManager couldn't find PlayerController.Instance on Awake!");
         }
-
     }
 
     private void Start()

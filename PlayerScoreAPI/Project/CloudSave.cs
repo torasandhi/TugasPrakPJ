@@ -30,6 +30,52 @@ namespace PlayerScoreApiModule
             _logger = logger;
         }
 
+        [CloudCodeFunction("PUT_PlayerScore")]
+        public async Task PutPlayerScore(IExecutionContext context, IGameApiClient gameApiClient, int score)
+        {
+            _logger.LogInformation("PUT_PlayerScore called for player {PlayerId}", context.PlayerId);
+            try
+            {
+                var itemToSave = new SetItemBody(ScoreKey, score);
+
+                await gameApiClient.CloudSaveData.SetItemBatchAsync(
+                    context,
+                    context.AccessToken,
+                    context.ProjectId,
+                    context.PlayerId,
+                    new SetItemBatchBody(new List<SetItemBody> { itemToSave })
+                );
+            }
+            catch (ApiException ex)
+            {
+                _logger.LogError(ex, "Failed to PUT player score for player {PlayerId}", context.PlayerId);
+                throw;
+            }
+        }
+
+        [CloudCodeFunction("PUT_PlayerCharacter")]
+        public async Task PutPlayerCharacter(IExecutionContext context, IGameApiClient gameApiClient, int characterIndex)
+        {
+            _logger.LogInformation("PUT_PlayerCharacter called for player {PlayerId}", context.PlayerId);
+            try
+            {
+                var itemToSave = new SetItemBody(CharacterKey, characterIndex);
+
+                await gameApiClient.CloudSaveData.SetItemBatchAsync(
+                    context,
+                    context.AccessToken,
+                    context.ProjectId,
+                    context.PlayerId,
+                    new SetItemBatchBody(new List<SetItemBody> { itemToSave })
+                );
+            }
+            catch (ApiException ex)
+            {
+                _logger.LogError(ex, "Failed to PUT player character for player {PlayerId}", context.PlayerId);
+                throw;
+            }
+        }
+
         [CloudCodeFunction("PUT_PlayerData")]
         public async Task PutPlayerData(IExecutionContext context, IGameApiClient gameApiClient, int score, int characterIndex)
         {

@@ -2,16 +2,16 @@
 
 public class State_GameOver : IState
 {
-    public void Enter()
+    public void OnEnter()
     {
         Debug.Log("Entering Main Menu State.");
     }
 
-    public void Update()
+    public void OnUpdate()
     {
     }
 
-    public void Exit()
+    public void OnExit()
     {
         Debug.Log("Exiting GameOver State.");
     }

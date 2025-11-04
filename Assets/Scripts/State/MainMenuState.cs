@@ -7,31 +7,21 @@ using UnityEngine;
 /// </summary>
 public class State_MainMenu : IState
 {
-    public void Enter()
+    public void OnEnter()
     {
         Debug.Log("Entering Main Menu State.");
         UIManager.Instance.SpawnUIByString("ui-mainmenu");
     }
 
-    public void Update()
+    public void OnUpdate()
     {
-        // This state is usually driven by UI button events.
-
-        // Simple way to start the game
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            // You could use your SceneManager here to load the level first!
-            // For example:
-            // SceneManager.Instance.LoadLevel("YourGameplaySceneName", EGameState.Gameplay);
-
-            // For now, we'll just change the state.
             SceneManager.Instance.LoadLevel("Gameplay", EGameState.Gameplay);
-
         }
-        // ----------------
     }
 
-    public void Exit()
+    public void OnExit()
     {
         Debug.Log("Exiting Main Menu State.");
         UIManager.Instance.DestroyUIByString("ui-mainmenu");

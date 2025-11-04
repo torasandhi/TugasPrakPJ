@@ -24,7 +24,7 @@ public class SceneManager : Singleton<SceneManager>
     /// Public method to start loading a new level.
     /// </summary>
     public void LoadLevel(string level, EGameState state)
-    {
+    {   
         // We start the coroutine to handle the entire loading process.
         StartCoroutine(WaitLoading(level, state));
     }
