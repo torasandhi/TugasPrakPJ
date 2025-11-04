@@ -1,10 +1,14 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 
 
 public class PlayerController : Singleton<PlayerController>
 {
+    [SerializeField] private PlayerData playerDataReference;
+
     private Controls input;
 
     protected override void Awake()
@@ -47,6 +51,41 @@ public class PlayerController : Singleton<PlayerController>
     {
         return input;
     }
+
+
+    #region PlayerDataController
+
+    public int GetPlayerDataScore()
+    {
+        return playerDataReference.playerScore;
+    }
+
+    public void SetPlayerDataScore()
+    {
+        
+    }
+    
+    public void AddPlayerDataScore()
+    {
+
+    }
+
+    public void SubtractPlayerDataScore()
+    {
+
+    }
+
+    public int GetPlayerDataCharacterIndex()
+    {
+        return playerDataReference.lastUsedCharacterIndex;
+    }
+
+    public void SetPlayerDataCharacterIndex(int index)
+    {
+        playerDataReference.lastUsedCharacterIndex = index;
+    }
+
+    #endregion
 }
 
 public enum E_PlayerState { Movement, Interacting, Dead }
@@ -57,4 +96,3 @@ public interface IPlayerState
     void Update();
     void Exit();
 }
-

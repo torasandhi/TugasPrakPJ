@@ -1,0 +1,13 @@
+D:\UNITY\Untity Projects\TugasPrakPJ\PlayerScoreAPI\Project\bin\Release\net6.0\linux-x64\PlayerScoreAPI.deps.json
+D:\UNITY\Untity Projects\TugasPrakPJ\PlayerScoreAPI\Project\bin\Release\net6.0\linux-x64\PlayerScoreAPI.dll
+D:\UNITY\Untity Projects\TugasPrakPJ\PlayerScoreAPI\Project\bin\Release\net6.0\linux-x64\PlayerScoreAPI.pdb
+D:\UNITY\Untity Projects\TugasPrakPJ\PlayerScoreAPI\Project\obj\Release\net6.0\linux-x64\PlayerScoreAPI.csproj.AssemblyReference.cache
+D:\UNITY\Untity Projects\TugasPrakPJ\PlayerScoreAPI\Project\obj\Release\net6.0\linux-x64\PlayerScoreAPI.GeneratedMSBuildEditorConfig.editorconfig
+D:\UNITY\Untity Projects\TugasPrakPJ\PlayerScoreAPI\Project\obj\Release\net6.0\linux-x64\PlayerScoreAPI.AssemblyInfoInputs.cache
+D:\UNITY\Untity Projects\TugasPrakPJ\PlayerScoreAPI\Project\obj\Release\net6.0\linux-x64\PlayerScoreAPI.AssemblyInfo.cs
+D:\UNITY\Untity Projects\TugasPrakPJ\PlayerScoreAPI\Project\obj\Release\net6.0\linux-x64\PlayerScoreAPI.csproj.CoreCompileInputs.cache
+D:\UNITY\Untity Projects\TugasPrakPJ\PlayerScoreAPI\Project\obj\Release\net6.0\linux-x64\PlayerScoreAPI.sourcelink.json
+D:\UNITY\Untity Projects\TugasPrakPJ\PlayerScoreAPI\Project\obj\Release\net6.0\linux-x64\PlayerScoreAPI.dll
+D:\UNITY\Untity Projects\TugasPrakPJ\PlayerScoreAPI\Project\obj\Release\net6.0\linux-x64\refint\PlayerScoreAPI.dll
+D:\UNITY\Untity Projects\TugasPrakPJ\PlayerScoreAPI\Project\obj\Release\net6.0\linux-x64\PlayerScoreAPI.pdb
+D:\UNITY\Untity Projects\TugasPrakPJ\PlayerScoreAPI\Project\obj\Release\net6.0\linux-x64\ref\PlayerScoreAPI.dll

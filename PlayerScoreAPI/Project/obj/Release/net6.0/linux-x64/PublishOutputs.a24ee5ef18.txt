@@ -1,0 +1,13 @@
+C:\Users\asus vivobook\AppData\Local\Temp\PlayerScoreAPI\module-compilation\PlayerScoreAPI.dll
+C:\Users\asus vivobook\AppData\Local\Temp\PlayerScoreAPI\module-compilation\PlayerScoreAPI.deps.json
+C:\Users\asus vivobook\AppData\Local\Temp\PlayerScoreAPI\module-compilation\PlayerScoreAPI.pdb
+C:\Users\asus vivobook\AppData\Local\Temp\PlayerScoreAPI\module-compilation\Unity.Services.CloudCode.Apis.dll
+C:\Users\asus vivobook\AppData\Local\Temp\PlayerScoreAPI\module-compilation\Unity.Services.CloudCode.Core.dll
+C:\Users\asus vivobook\AppData\Local\Temp\PlayerScoreAPI\module-compilation\Google.Protobuf.dll
+C:\Users\asus vivobook\AppData\Local\Temp\PlayerScoreAPI\module-compilation\Grpc.Core.Api.dll
+C:\Users\asus vivobook\AppData\Local\Temp\PlayerScoreAPI\module-compilation\Grpc.Net.Client.dll
+C:\Users\asus vivobook\AppData\Local\Temp\PlayerScoreAPI\module-compilation\Grpc.Net.Common.dll
+C:\Users\asus vivobook\AppData\Local\Temp\PlayerScoreAPI\module-compilation\JsonSubTypes.dll
+C:\Users\asus vivobook\AppData\Local\Temp\PlayerScoreAPI\module-compilation\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\asus vivobook\AppData\Local\Temp\PlayerScoreAPI\module-compilation\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\asus vivobook\AppData\Local\Temp\PlayerScoreAPI\module-compilation\Newtonsoft.Json.dll
