@@ -29,10 +29,11 @@ public class GameManager : Singleton<GameManager>
         GameStateMachine.RegisterState(EGameState.Gameplay, new State_Gameplay());
         GameStateMachine.RegisterState(EGameState.Paused, new State_Pause());
         GameStateMachine.RegisterState(EGameState.Loading, new State_Loading());
+        GameStateMachine.RegisterState(EGameState.Authenticate, new State_Authenticate());
 
 
-        // Start the game in the Main Menu
-        SceneManager.Instance.LoadLevel("MainMenu", EGameState.MainMenu);
+        // Start the game to Authenticate
+        SceneManager.Instance.LoadLevel("Authenticate", EGameState.Authenticate);
     }
 
     private void Update()

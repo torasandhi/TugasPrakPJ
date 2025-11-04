@@ -35,7 +35,18 @@ namespace Unity.Services.CloudCode.GeneratedBindings
                 });
         }
 
-        public async Task PUT_PlayerData(int score, int characterIndex)
+        public async Task PUT_Character(string characterName)
+        {
+            await k_Service.CallModuleEndpointAsync(
+                "PlayerScoreAPI",
+                "PUT_Character",
+                new Dictionary<string, object>()
+                {
+                    {"characterName", characterName},
+                });
+        }
+
+        public async Task PUT_PlayerData(int score, int characterIndex, string characterName)
         {
             await k_Service.CallModuleEndpointAsync(
                 "PlayerScoreAPI",
@@ -44,6 +55,7 @@ namespace Unity.Services.CloudCode.GeneratedBindings
                 {
                     {"score", score},
                     {"characterIndex", characterIndex},
+                    {"characterName", characterName},
                 });
         }
 

@@ -8,8 +8,6 @@ using Unity.Services.CloudCode.Apis;
 using Unity.Services.CloudCode.Core;
 using Unity.Services.CloudCode.Shared;
 using Unity.Services.CloudSave.Model;
-using System.Threading;
-using System.Dynamic;
 
 namespace PlayerScoreApiModule
 {
@@ -17,6 +15,7 @@ namespace PlayerScoreApiModule
     {
         public int Score { get; set; }
         public int LastUsedCharacterIndex { get; set; }
+        public string lastUsedCharacterName { get; set; } = "Rangga";
     }
     public class CloudSave
     {
@@ -24,6 +23,7 @@ namespace PlayerScoreApiModule
 
         private const string ScoreKey = "playerScore";
         private const string CharacterKey = "lastUsedCharacterIndex";
+        private const string CharacterNameKey = "lastUsedCharacter";
 
         public CloudSave(ILogger<CloudSave> logger)
         {
@@ -76,8 +76,31 @@ namespace PlayerScoreApiModule
             }
         }
 
+        [CloudCodeFunction("PUT_Character")]
+        public async Task PutPlayerCharacter(IExecutionContext context, IGameApiClient gameApiClient, string characterName)
+        {
+            _logger.LogInformation("PUT_Character called for player {PlayerId}", context.PlayerId);
+            try
+            {
+                var itemToSave = new SetItemBody(CharacterNameKey, characterName);
+
+                await gameApiClient.CloudSaveData.SetItemBatchAsync(
+                    context,
+                    context.AccessToken,
+                    context.ProjectId,
+                    context.PlayerId,
+                    new SetItemBatchBody(new List<SetItemBody> { itemToSave}) 
+                    );
+            }
+            catch(ApiException ex)
+            {
+                _logger.LogError(ex, "Failed to PUT player character for player {PlayerId}", context.PlayerId);
+                throw;
+            }
+        }
+
         [CloudCodeFunction("PUT_PlayerData")]
-        public async Task PutPlayerData(IExecutionContext context, IGameApiClient gameApiClient, int score, int characterIndex)
+        public async Task PutPlayerData(IExecutionContext context, IGameApiClient gameApiClient, int score, int characterIndex, string characterName)
         {
             _logger.LogInformation("PUT_PlayerData called for player {PlayerId}", context.PlayerId);
             try
@@ -85,7 +108,8 @@ namespace PlayerScoreApiModule
                 var itemsToSave = new List<SetItemBody>
                 {
                     new SetItemBody(ScoreKey, score),
-                    new SetItemBody(CharacterKey, characterIndex)
+                    new SetItemBody(CharacterKey, characterIndex),
+                    new SetItemBody(CharacterNameKey, characterName)
                 };
 
                 await gameApiClient.CloudSaveData.SetItemBatchAsync(
@@ -109,8 +133,7 @@ namespace PlayerScoreApiModule
             _logger.LogInformation("GET_PlayerData called for player {PlayerId}", context.PlayerId);
             try
             {
-                // Request both keys at the same time
-                var keysToGet = new List<string> { ScoreKey, CharacterKey };
+                var keysToGet = new List<string> { ScoreKey, CharacterKey, CharacterNameKey };
 
                 var result = await gameApiClient.CloudSaveData.GetItemsAsync(
                     context,
@@ -120,24 +143,56 @@ namespace PlayerScoreApiModule
                     keysToGet
                 );
 
+                //Default Value
                 var data = new PlayerData
                 {
-                    Score = 0, // Default value
-                    LastUsedCharacterIndex = 0 // Default value
+                    Score = 0,
+                    LastUsedCharacterIndex = 0,
+                    lastUsedCharacterName = "Rangga"
                 };
 
-                // Find and parse the score
-                var scoreItem = result.Data.Results.FirstOrDefault(item => item.Key == ScoreKey);
-                if (scoreItem?.Value != null && (JsonElement)scoreItem.Value is var scoreValue && scoreValue.ValueKind == JsonValueKind.Number)
+                foreach (var item in result.Data.Results)
                 {
-                    data.Score = scoreValue.GetInt32();
-                }
+                    try
+                    {
+                        switch (item.Key)
+                        {
+                            case ScoreKey:
+                                if (item.Value != null)
+                                {
+                                    // Convert to string first then parse to avoid casting issues
+                                    var scoreStr = item.Value.ToString();
+                                    if (int.TryParse(scoreStr, out int scoreValue))
+                                    {
+                                        data.Score = scoreValue;
+                                    }
+                                }
+                                break;
 
-                // Find and parse the character index
-                var charItem = result.Data.Results.FirstOrDefault(item => item.Key == CharacterKey);
-                if (charItem?.Value != null && (JsonElement)charItem.Value is var charValue && charValue.ValueKind == JsonValueKind.Number)
-                {
-                    data.LastUsedCharacterIndex = charValue.GetInt32();
+                            case CharacterKey:
+                                if (item.Value != null)
+                                {
+                                    var charIndexStr = item.Value.ToString();
+                                    if (int.TryParse(charIndexStr, out int charValue))
+                                    {
+                                        data.LastUsedCharacterIndex = charValue;
+                                    }
+                                }
+                                break;
+
+                            case CharacterNameKey:
+                                if (item.Value != null)
+                                {
+                                    data.lastUsedCharacterName = item.Value.ToString();
+                                }
+                                break;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogWarning(ex, "Error parsing value for key {Key}", item.Key);
+                        // Continue with next item if one fails
+                    }
                 }
 
                 return data;

@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Threading.Tasks;
+using Unity.Services.CloudCode.GeneratedBindings;
+using Unity.Services.CloudCode;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
@@ -18,7 +21,49 @@ public class Player : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
     }
 
-   private void Start()
+    public async Task LoadAndInstantiateCharacter()
+    {
+        if (playerDataReference != null && playerDataReference.listOfCharacters != null && playerDataReference.listOfCharacters.Count > 0)
+        {
+            try
+            {
+                var cloudModule = new CloudSaveBindings(CloudCodeService.Instance);
+                var cloudData = await cloudModule.GET_PlayerData();
+                
+                int lastCharacterIndex = cloudData?.LastUsedCharacterIndex ?? 0;
+                LastUsedCharacter character = playerDataReference.listOfCharacters.Find(c => c.characterIndex == lastCharacterIndex);
+                
+                if (character.prefab != null)
+                {
+                    GameObject characterInstance = Instantiate(character.prefab, transform.position, Quaternion.identity, transform);
+                }
+                else
+                {
+                    Debug.LogError("Character prefab is null! Check PlayerData ScriptableObject.");
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogWarning($"Failed to load cloud data, using first character: {ex.Message}");
+              
+                if (playerDataReference.listOfCharacters[0].prefab != null)
+                {
+                    GameObject characterInstance = Instantiate(
+                        playerDataReference.listOfCharacters[0].prefab, 
+                        transform.position, 
+                        Quaternion.identity, 
+                        transform
+                    );
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("PlayerData reference or character list is invalid! Check inspector references.");
+        }
+    }
+
+    private async void Start()
     {
         _rb.gravityScale = 0;
 
@@ -40,25 +85,8 @@ public class Player : MonoBehaviour
             Debug.LogError("Controls object is null! Check PlayerController.cs");
         }
 
-        // Load and instantiate the last used character
-        if (playerDataReference != null && playerDataReference.listOfCharacters != null && playerDataReference.listOfCharacters.Count > 0)
-        {
-            int lastCharacterIndex = GetPlayerDataCharacterIndex();
-            LastUsedCharacter character = playerDataReference.listOfCharacters.Find(c => c.characterIndex == lastCharacterIndex);
-            
-            if (character.prefab != null)
-            {
-                GameObject characterInstance = Instantiate(character.prefab, transform.position, Quaternion.identity, transform);
-            }
-            else
-            {
-                Debug.LogError("Character prefab is null! Check PlayerData ScriptableObject.");
-            }
-        }
-        else
-        {
-            Debug.LogError("PlayerData reference or character list is invalid! Check inspector references.");
-        }
+        // Load and instantiate character
+        await LoadAndInstantiateCharacter();
     }
 
     private void OnMovePerformed(InputAction.CallbackContext context)

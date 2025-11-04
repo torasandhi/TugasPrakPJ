@@ -8,6 +8,7 @@ namespace Unity.Services.CloudCode.GeneratedBindings.PlayerScoreApiModule
     {
         public int Score;
         public int LastUsedCharacterIndex;
+        public string lastUsedCharacterName;
 
         [Preserve]
         public PlayerData ()

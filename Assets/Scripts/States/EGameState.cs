@@ -4,5 +4,6 @@ public enum EGameState
     Gameplay,
     Paused,
     GameOver,
-    Loading
+    Loading, 
+    Authenticate
 }

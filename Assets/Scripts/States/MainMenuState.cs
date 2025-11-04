@@ -15,10 +15,6 @@ public class State_MainMenu : IState
 
     public void OnUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SceneManager.Instance.LoadLevel("Gameplay", EGameState.Gameplay);
-        }
     }
 
     public void OnExit()
