@@ -1,3 +1,8 @@
+Anggota Kelompok : 
+- Oscar Javier Abdullah (5223600001)
+- Rangga Raisha Syaputra (5223600007)
+- Tora Sandhi Kamulian (5223600013)
+
 # Laporan Proyek Pengembangan Game: Integrasi REST API (UGS)
 
 ## Integrasi Mini Game Unity dengan REST API Menggunakan Unity Cloud Code dan Cloud Save
