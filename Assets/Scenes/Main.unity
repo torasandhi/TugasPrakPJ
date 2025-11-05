@@ -523,9 +523,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   object_list:
-  - tag: 
-    prefab: {fileID: 0}
-    size: 0
+  - tag: Obstacle
+    prefab: {fileID: 3153074167465928764, guid: b1869733f9545a749ac579ed8f06c001, type: 3}
+    size: 5
 --- !u!1 &1354164236
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,6 +579,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1608684320}
+  - component: {fileID: 1608684321}
   m_Layer: 0
   m_Name: -- ObstacleManager --
   m_TagString: Untagged
@@ -595,12 +596,34 @@ Transform:
   m_GameObject: {fileID: 1608684319}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1608684321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608684319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2311dc137f26cb74c919904f8426ba0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleTag: Obstacle
+  spawnPoint: {fileID: 1608684320}
+  spawnInterval: 3
+  obstaclePartCount: 9
+  scoreTag: Score
+  originalPartTag: Obstacle
+  is2DGame: 1
+  targetYPosition: -7
+  tweenDuration: 5
+  moveEase: 1
 --- !u!1 &1960862912
 GameObject:
   m_ObjectHideFlags: 0

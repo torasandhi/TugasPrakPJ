@@ -6,6 +6,7 @@ public class GameManager : Singleton<GameManager>
     public State_Machine GameStateMachine { get; private set; }
 
     public static event Action<EGameState> OnGameStateChanged;
+    private bool IsPaused = false;
 
     protected override void Awake()
     {
@@ -44,5 +45,27 @@ public class GameManager : Singleton<GameManager>
     public void TriggerGameStateChange(EGameState newState)
     {
         OnGameStateChanged?.Invoke(newState);
+    }
+
+    public void PauseGame()
+    {
+        IsPaused = true;
+
+        // 1. Freeze game time
+        Time.timeScale = 0f;
+
+        // 2. Pause all audio
+        AudioListener.pause = true;
+    }
+
+    public void ResumeGame()
+    {
+        IsPaused = false;
+
+        // 1. Restore normal game time
+        Time.timeScale = 1f;
+
+        // 2. Resume all audio
+        AudioListener.pause = false;
     }
 }

@@ -7,6 +7,7 @@ public class State_GameOver : IState
         Debug.Log("Entering Main Menu State.");
         UIManager.Instance.SpawnUIByString("ui-gameover");
         GameOver.Instance.ShowScore();
+        GameManager.Instance.PauseGame();
     }
 
     public void OnUpdate()
@@ -17,5 +18,6 @@ public class State_GameOver : IState
     {
         Debug.Log("Exiting GameOver State.");
         UIManager.Instance.DestroyUIByString("ui-gameover");
+        GameManager.Instance.ResumeGame();
     }
 }

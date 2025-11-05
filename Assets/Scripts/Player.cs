@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     private Controls _controls;
 
     private Vector2 _moveInput;
-    private float _playerSpeed = 5.0f;
+    private float _playerSpeed = 8.0f;
 
    private void Awake()
     {
@@ -120,6 +120,26 @@ public class Player : MonoBehaviour
             _controls.Player.Move.canceled -= OnMoveCanceled;
         }
     }
+
+    #region Collision Handling
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Obstacle"))
+        {
+            GameManager.Instance.GameStateMachine.ChangeState(EGameState.GameOver);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Score"))
+        {
+            ScoreManager.Instance.AddScore(10);
+        }
+    }
+
+    #endregion
 
     #region PlayerData
 
