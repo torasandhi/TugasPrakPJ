@@ -30,7 +30,7 @@ public class GameManager : Singleton<GameManager>
         GameStateMachine.RegisterState(EGameState.Paused, new State_Pause());
         GameStateMachine.RegisterState(EGameState.Loading, new State_Loading());
         GameStateMachine.RegisterState(EGameState.Authenticate, new State_Authenticate());
-
+        GameStateMachine.RegisterState(EGameState.GameOver, new State_GameOver());
 
         // Start the game to Authenticate
         SceneManager.Instance.LoadLevel("Authenticate", EGameState.Authenticate);

@@ -5,10 +5,6 @@ public class State_Gameplay : IState
     public void OnEnter()
     {
         Debug.Log("Entering Gameplay State.");
-        // - Enable player input
-        // - Start spawning enemies
-        // - Begin the level timer
-        // - Show the gameplay HUD
     }
 
     public void OnUpdate()
@@ -19,14 +15,16 @@ public class State_Gameplay : IState
         {
             GameManager.Instance.GameStateMachine.ChangeState(EGameState.Paused);
         }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            GameManager.Instance.GameStateMachine.ChangeState(EGameState.GameOver);
+        }
     }
 
     public void OnExit()
     {
         Debug.Log("Exiting Gameplay State.");
-        // - Disable player input
-        // - Stop spawning enemies
-        // - Hide the gameplay HUD
     }
 }
 

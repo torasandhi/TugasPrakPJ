@@ -12,32 +12,37 @@ public class Test : MonoBehaviour
     private bool isInitialized = false;
     // We remove 'playerScore' because we'll get it from the server
 
-    //public async void Start()
-    //{
-    //    try
-    //    {
-    //        await UnityServices.InitializeAsync();
-    //        if (!AuthenticationService.Instance.IsSignedIn)
-    //        {
-    //            await AuthenticationService.Instance.SignInAnonymouslyAsync();
-    //            Debug.Log($"Signed in as Player: {AuthenticationService.Instance.PlayerId}");
-    //        }
+    public async void Start()
+    {
+        try
+        {
+            await UnityServices.InitializeAsync();
+            if (!AuthenticationService.Instance.IsSignedIn)
+            {
+                await AuthenticationService.Instance.SignInAnonymouslyAsync();
+                Debug.Log($"Signed in as Player: {AuthenticationService.Instance.PlayerId}");
+            }
 
-    //        module = new CloudSaveBindings(CloudCodeService.Instance);
-    //        isInitialized = true;
+            module = new CloudSaveBindings(CloudCodeService.Instance);
+            isInitialized = true;
 
-    //        Debug.Log("---  INPUT FOR TESTING. ---");
-    //        Debug.Log("PRESS [UP ARROW] to PUT (Score: 100, Char: 1)");
-    //        Debug.Log("PRESS [RIGHT ARROW] to GET all data");
-    //        Debug.Log("PRESS [DOWN ARROW] to PUT (Score: 250, Char: 2)");
-    //        Debug.Log("PRESS [LEFT ARROW] to DELETE all data");
-    //    }
-    //    catch (System.Exception ex)
-    //    {
-    //        Debug.LogError("Initialization Failed!");
-    //        Debug.LogException(ex);
-    //    }
-    //}
+            Debug.Log("---  INPUT FOR TESTING. ---");
+            Debug.Log("PRESS [UP ARROW] to PUT (Score: 100, Char: 1)");
+            Debug.Log("PRESS [RIGHT ARROW] to GET all data");
+            Debug.Log("PRESS [DOWN ARROW] to PUT (Score: 250, Char: 2)");
+            Debug.Log("PRESS [LEFT ARROW] to DELETE all data");
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("Initialization Failed!");
+            Debug.LogException(ex);
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.L)) { ScoreManager.Instance.AddScore(10); }
+    }
 
     //public async void Update()
     //{

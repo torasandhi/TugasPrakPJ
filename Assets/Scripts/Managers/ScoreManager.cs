@@ -2,33 +2,76 @@ using UnityEngine;
 using System.Threading.Tasks;
 using Unity.Services.CloudCode.GeneratedBindings;
 using Unity.Services.CloudCode;
+using Unity.Services.Authentication;
 
 public class ScoreManager : Singleton<ScoreManager>
 {
     private int _currentScore = 0;
     private int _highScore = 0;
     private CloudSaveBindings _cloudModule;
+    private bool _initialized;
 
     public int CurrentScore => _currentScore;
     public int HighScore => _highScore;
 
-    protected override void Awake()
+    protected override async void Awake()
     {
         base.Awake();
-        InitializeCloudModule();
+        await InitializeCloudModule();
     }
 
-    private async void InitializeCloudModule()
+    private async Task InitializeCloudModule()
     {
-        // Wait for authentication to be ready
-        if (!AuthenticationManager.Instance.IsSignedIn)
-        {
-            Debug.LogWarning("ScoreManager: No user signed in, scores won't be saved to cloud.");
-            return;
-        }
+        if (_initialized) return;
 
-        _cloudModule = AuthenticationManager.Instance.CloudModule;
-        await LoadHighScore();
+        try
+        {
+            // Ensure AuthenticationManager (and Unity Services) have a chance to initialize.
+            // This will return quickly if already initialized.
+            await AuthenticationManager.Instance.InitializeAsync();
+
+            // If already signed in, grab the cloud module and load high score immediately.
+            if (AuthenticationManager.Instance.IsSignedIn)
+            {
+                _cloudModule = AuthenticationManager.Instance.CloudModule;
+                await LoadHighScore();
+                _initialized = true;
+                Debug.Log("ScoreManager: Initialized successfully (signed in).");
+                return;
+            }
+
+            // Not signed in yet: subscribe to the AuthenticationService SignedIn event so we can initialize when auth completes.
+            AuthenticationService.Instance.SignedIn += OnAuthSignedIn;
+
+            // Optionally attempt anonymous sign-in fallback if you want guest saves to work.
+            // Comment out the following line if you require explicit username sign-in first.
+            await AuthenticationManager.Instance.SignInAnonymouslyAsync();
+            // If anonymous sign-in succeeded, OnAuthSignedIn will be invoked and initialization will continue there.
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"ScoreManager initialization failed: {ex.Message}");
+        }
+    }
+
+    private async void OnAuthSignedIn()
+    {
+        // Called on auth sign-in (anonymous or username). Unsubscribe immediately.
+        AuthenticationService.Instance.SignedIn -= OnAuthSignedIn;
+
+        try
+        {
+            // Create or obtain the cloud module from AuthenticationManager
+            _cloudModule = AuthenticationManager.Instance.CloudModule ?? new CloudSaveBindings(CloudCodeService.Instance);
+
+            await LoadHighScore();
+            _initialized = true;
+            Debug.Log("ScoreManager: Initialized successfully after sign-in.");
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"ScoreManager: failed to finish initialization after sign-in: {ex.Message}");
+        }
     }
 
     private async Task LoadHighScore()
@@ -59,9 +102,6 @@ public class ScoreManager : Singleton<ScoreManager>
         {
             _highScore = _currentScore;
             Debug.Log($"New high score: {_highScore}!");
-
-            // Fire and forget the high score save
-            _ = SaveHighScore();
         }
     }
 
@@ -70,8 +110,13 @@ public class ScoreManager : Singleton<ScoreManager>
         _currentScore = 0;
     }
 
-    private async Task SaveHighScore()
+    public async Task SaveHighScore()
     {
+        if (!_initialized)
+        {
+            await InitializeCloudModule();
+        }
+
         if (_cloudModule == null)
         {
             Debug.LogWarning("ScoreManager: Cloud module not available, high score won't be saved.");
@@ -95,9 +140,13 @@ public class ScoreManager : Singleton<ScoreManager>
         }
     }
 
-    // Optional: Force save current score even if not high score
     public async Task SaveCurrentScore()
     {
+        if (!_initialized)
+        {
+            await InitializeCloudModule();
+        }
+
         if (_cloudModule == null) return;
 
         try
