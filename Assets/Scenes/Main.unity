@@ -311,6 +311,8 @@ MonoBehaviour:
     transform: {fileID: 8432915320173431455, guid: 6907ce43ea1afa040916aed885ad8316, type: 3}
   - name: ui-gameover
     transform: {fileID: 7404225450760745249, guid: 32e4a46445ed6f04cb9da04d992d46ac, type: 3}
+  - name: ui-gameplay
+    transform: {fileID: 7404225450760745249, guid: 06baf5247bc2cd84791e9cc7e76e3f04, type: 3}
 --- !u!1 &391822288
 GameObject:
   m_ObjectHideFlags: 0

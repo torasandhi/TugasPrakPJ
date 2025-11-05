@@ -5,6 +5,7 @@ public class State_GameOver : IState
     public void OnEnter()
     {
         Debug.Log("Entering Main Menu State.");
+        UIManager.Instance.DestroyUIByString("ui-gameplay");
         UIManager.Instance.SpawnUIByString("ui-gameover");
         GameOver.Instance.ShowScore();
         GameManager.Instance.PauseGame();

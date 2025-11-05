@@ -75,6 +75,7 @@ public class CharacterSelector : MonoBehaviour
     private void OnGameStart()
     {
         SceneManager.Instance.LoadLevel("Gameplay", EGameState.Gameplay);
+        UIManager.Instance.SpawnUIByString("ui-gameplay");
         _ = SaveSelectedCharacterAsync(selectedIndex, selectedName);
     }
 
