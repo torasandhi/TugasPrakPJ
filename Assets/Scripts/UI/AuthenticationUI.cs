@@ -12,8 +12,6 @@ public class AuthenticationUI : MonoBehaviour
     [SerializeField] private TMP_InputField passwordField;
 
     [Header("Buttons")]
-    [SerializeField] private Button signInButton;
-    [SerializeField] private Button signUpButton;
     [SerializeField] private Button playAsGuestButton;
 
     [Header("Status")]
@@ -22,8 +20,6 @@ public class AuthenticationUI : MonoBehaviour
 
     private void Start()
     {
-        signInButton.onClick.AddListener(() => _ = HandleSignIn());
-        signUpButton.onClick.AddListener(() => _ = HandleSignUp());
         playAsGuestButton.onClick.AddListener(() => _ = HandleGuestPlay());
 
         SetInteractable(true);
@@ -35,33 +31,8 @@ public class AuthenticationUI : MonoBehaviour
     {
         usernameField.interactable = interactable;
         passwordField.interactable = interactable;
-        signInButton.interactable = interactable;
-        signUpButton.interactable = interactable;
+
         playAsGuestButton.interactable = interactable;
-    }
-
-    private async Task HandleSignIn()
-    {
-        await HandleAuth(async () =>
-        {
-            await AuthenticationManager.Instance.SignInAsync(
-                usernameField.text.Trim(),
-                passwordField.text
-            );
-            OnAuthenticationSuccess();
-        });
-    }
-
-    private async Task HandleSignUp()
-    {
-        await HandleAuth(async () =>
-        {
-            await AuthenticationManager.Instance.SignUpAsync(
-                usernameField.text.Trim(),
-                passwordField.text
-            );
-            OnAuthenticationSuccess();
-        });
     }
 
     private async Task HandleGuestPlay()
@@ -107,8 +78,6 @@ public class AuthenticationUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (signInButton) signInButton.onClick.RemoveAllListeners();
-        if (signUpButton) signUpButton.onClick.RemoveAllListeners();
         if (playAsGuestButton) playAsGuestButton.onClick.RemoveAllListeners();
     }
 }
