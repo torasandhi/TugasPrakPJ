@@ -53,16 +53,20 @@ PrefabInstance:
       value: CharacterRed
       objectReference: {fileID: 0}
     - target: {fileID: 4631832446773375775, guid: 7fe3cfa56cf87144da5ff555b61c33f4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -8883217086584449364, guid: 7d321af2386a57b4597d6426641f5700, type: 3}
+    - target: {fileID: 4631832446773375775, guid: 7fe3cfa56cf87144da5ff555b61c33f4, type: 3}
       propertyPath: m_Color.b
-      value: 0.08545934
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4631832446773375775, guid: 7fe3cfa56cf87144da5ff555b61c33f4, type: 3}
       propertyPath: m_Color.g
-      value: 0.13842331
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4631832446773375775, guid: 7fe3cfa56cf87144da5ff555b61c33f4, type: 3}
       propertyPath: m_Color.r
-      value: 0.93710685
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

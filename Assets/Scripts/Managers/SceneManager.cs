@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using Unity.Android.Gradle.Manifest;
+// using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 // Make sure to add this namespace!
 using UnityEngine.SceneManagement;
