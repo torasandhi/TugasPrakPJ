@@ -25,12 +25,6 @@ public class Test : MonoBehaviour
 
             module = new CloudSaveBindings(CloudCodeService.Instance);
             isInitialized = true;
-
-            Debug.Log("---  INPUT FOR TESTING. ---");
-            Debug.Log("PRESS [UP ARROW] to PUT (Score: 100, Char: 1)");
-            Debug.Log("PRESS [RIGHT ARROW] to GET all data");
-            Debug.Log("PRESS [DOWN ARROW] to PUT (Score: 250, Char: 2)");
-            Debug.Log("PRESS [LEFT ARROW] to DELETE all data");
         }
         catch (System.Exception ex)
         {
