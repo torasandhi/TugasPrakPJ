@@ -3,9 +3,7 @@ Anggota Kelompok :
 - Rangga Raisha Syaputra (5223600007)
 - Tora Sandhi Kamulian (5223600013)
 
-# Laporan Proyek Pengembangan Game: Integrasi REST API (UGS)
-
-## Integrasi Mini Game Unity dengan REST API Menggunakan Unity Cloud Code dan Cloud Save
+# Laporan Proyek Praktikum Pemrograman Jaringan Komputer: Integrasi REST API (menggunakan UGS)
 
 ### Pendahuluan
 
@@ -58,7 +56,7 @@ Bertanggung jawab atas semua logika sisi server dan penyimpanan data.
 
 ------------------------------------------------------------------------
 
-### Bagian 1: Perancangan "Database" (UGS Cloud Save)
+### 1: Perancangan "Database" (UGS Cloud Save)
 
 Sebagai pengganti database SQL tradisional, **UGS Cloud Save** digunakan
 sebagai database NoSQL berbasis key-value. Berdasarkan analisis file
@@ -68,10 +66,10 @@ setiap pemain:
   -------------------------------------------------------------------------------------
   Key                        Deskripsi                      Tipe Data
   -------------------------- ------------------------------ ---------------------------
-  `playerScore`              Menyimpan skor tertinggi       Numerik
+  `playerScore`              Menyimpan skor tertinggi       int
                              pemain                         
 
-  `lastUsedCharacterIndex`   Indeks karakter terakhir yang  Numerik
+  `lastUsedCharacterIndex`   Indeks karakter terakhir yang  int
                              dipilih                        
 
   `lastUsedCharacter`        Nama karakter terakhir yang    String
@@ -83,7 +81,7 @@ dari layanan Unity Authentication.
 
 ------------------------------------------------------------------------
 
-### Bagian 2: Perancangan "REST API" (UGS Cloud Code)
+### 2: Perancangan "REST API" (UGS Cloud Code)
 
 Persyaratan untuk "merancang REST API" dipenuhi melalui implementasi
 **UGS Cloud Code C# Module**. File `PlayerScoreApiModule.cs`
@@ -111,7 +109,7 @@ melalui Cloud Code.
 
 ------------------------------------------------------------------------
 
-### Bagian 3: Integrasi pada Game Client (Unity)
+### 3: Integrasi pada Game Client (Unity)
 
 Game client tidak memanggil HTTP request manual. UGS menyediakan
 **Generated Bindings** (`CloudSaveBindings.cs`) yang memungkinkan
@@ -149,20 +147,3 @@ pemanggilan API seperti fungsi C# biasa.
 
 -   Data ini digunakan untuk menampilkan karakter terakhir pemain di UI
     dan gameplay.
-
-------------------------------------------------------------------------
-
-### Kesimpulan
-
-Proyek ini telah berhasil memenuhi seluruh spesifikasi tugas. REST API
-dirancang dan diimplementasikan menggunakan **UGS Cloud Code C#
-Modules**, yang menyediakan endpoint aman untuk menyimpan dan memuat
-data.
-
-Sebagai database, **UGS Cloud Save** menyimpan informasi pemain seperti
-skor tertinggi dan karakter terakhir yang digunakan.
-
-Integrasi di dalam **Game Client (Unity)** terbukti berhasil --- game
-mampu: - **Menyimpan state** (skor dan karakter) dengan memanggil
-`PUT_PlayerData`. - **Memuat ulang (resume)** state terakhir dengan
-memanggil `GET_PlayerData` saat game dimulai.
